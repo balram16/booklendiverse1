@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("../models/User");
 
-mongoose.connect("mongodb+srv://panigrahibalram16:Ping420+@cluster0.ne7hd.mongodb.net/bookhiveDB", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true });
 
 const seedUsers = async () => {
   try {
