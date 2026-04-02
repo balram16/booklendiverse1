@@ -17,7 +17,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DatePickerWithRange } from "@/components/ui/date-range-picker";
 import { DateRange } from "react-day-picker";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 interface Transaction {
   _id: string;
@@ -58,7 +58,7 @@ const AdminTransactions = () => {
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
   const [isExporting, setIsExporting] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAllTransactions = async () => {
@@ -240,7 +240,7 @@ const AdminTransactions = () => {
   };
 
   const handleViewTransaction = (ticketId: string) => {
-    navigate(`/transactions/${ticketId}`);
+    router.push(`/transactions/${ticketId}`);
   };
 
   const getStatusBadge = (status: string) => {

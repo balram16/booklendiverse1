@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { fetchBookById } from '@/api/books';
 import Navbar from '@/components/Navbar';
@@ -11,11 +12,11 @@ import RentBookModal from '@/components/RentBookModal';
 import { useToast } from '@/components/ui/use-toast';
 
 const BookDetail = () => {
-  const { id } = useParams();
+  const router = useRouter();
+  const { id } = router.query as { id: string };
   const { user } = useUser();
   const { toast } = useToast();
   const [showRentModal, setShowRentModal] = useState(false);
-  const navigate = useNavigate();
   
   const { data: book, isLoading, error } = useQuery({
     queryKey: ['book', id],
@@ -67,7 +68,7 @@ const BookDetail = () => {
         <main className="py-20 max-w-7xl mx-auto px-6 md:px-10 text-center">
           <h2 className="text-2xl font-serif mb-4">Book not found</h2>
           <p className="text-book-secondary mb-6">The book you're looking for could not be loaded.</p>
-          <Link to="/books">
+          <Link href="/books">
             <Button>
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Books
@@ -83,7 +84,7 @@ const BookDetail = () => {
     <div className="min-h-screen">
       <Navbar />
       <main className="py-10 max-w-7xl mx-auto px-6 md:px-10">
-        <Link to="/books" className="inline-flex items-center text-book-secondary hover:text-book-primary mb-8">
+        <Link href="/books" className="inline-flex items-center text-book-secondary hover:text-book-primary mb-8">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to all books
         </Link>
@@ -231,7 +232,7 @@ const BookDetail = () => {
                 <Button
                   size="lg"
                   className="w-full"
-                  onClick={() => navigate('/auth')}
+                  onClick={() => router.push('/login')}
                 >
                   Sign in to Rent
                 </Button>

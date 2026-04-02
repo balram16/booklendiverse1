@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -44,13 +44,13 @@ interface TransactionDetails {
 }
 
 const TransactionTicket = () => {
-  const { ticketId } = useParams<{ ticketId: string }>();
+  const router = useRouter();
+  const { ticketId } = router.query as { ticketId: string };
   const [transaction, setTransaction] = useState<TransactionDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [copying, setCopying] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTransactionDetails = async () => {
@@ -87,7 +87,7 @@ const TransactionTicket = () => {
   }, [ticketId, toast]);
 
   const handleGoBack = () => {
-    navigate(-1);
+    router.back();
   };
 
   const handleCopyTicketId = async () => {

@@ -6,7 +6,7 @@ import { ReceiptIcon, Book, Calendar, Loader2 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 
 interface Transaction {
   _id: string;
@@ -39,7 +39,7 @@ const TransactionHistory = () => {
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("all");
   const { toast } = useToast();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchTransactionHistory = async () => {
@@ -93,7 +93,7 @@ const TransactionHistory = () => {
   };
 
   const handleViewTicket = (ticketId: string) => {
-    navigate(`/transactions/${ticketId}`);
+    router.push(`/transactions/${ticketId}`);
   };
 
   const getStatusBadge = (status: string) => {
