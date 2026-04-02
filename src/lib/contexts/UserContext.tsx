@@ -144,7 +144,6 @@ const mockUser: IUser = {
   phone: '+1234567890',
   books: [],
   bookmarks: [],
-  borrowedBooks: [],
   borrowedBooks: []
 };
 
